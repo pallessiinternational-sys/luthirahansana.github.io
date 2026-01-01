@@ -1,0 +1,3459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luthira Hansana | Web Developer & Crypto Mining Specialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Enhanced Variables */
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-blue: #0066ff;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff9d;
+            --neon-red: #ff0055;
+            --dark-bg: #0a0a12;
+            --darker-bg: #06060c;
+            --card-bg: rgba(18, 18, 30, 0.85);
+            --card-border: rgba(0, 243, 255, 0.15);
+            --text-light: #f0f0ff;
+            --text-glow: rgba(0, 243, 255, 0.8);
+            --text-gray: #a8a8c8;
+            --text-muted: #8888aa;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --fast-transition: all 0.25s ease;
+            --border-radius: 12px;
+            --section-spacing: 160px;
+            --glass-bg: rgba(15, 15, 25, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --success-color: #00ff9d;
+            --warning-color: #ffaa00;
+            --danger-color: #ff0055;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', 'Exo 2', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        /* Enhanced Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--darker-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        
+        .loading-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 50px;
+        }
+        
+        .loading-geometry {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+        }
+        
+        .geo-circle {
+            position: absolute;
+            border: 3px solid var(--neon-cyan);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseCircle 3s infinite ease-in-out;
+        }
+        
+        .geo-circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            border-color: var(--neon-cyan);
+            animation-delay: 0s;
+        }
+        
+        .geo-circle:nth-child(2) {
+            width: 180px;
+            height: 180px;
+            border-color: var(--neon-blue);
+            animation-delay: 0.2s;
+        }
+        
+        .geo-circle:nth-child(3) {
+            width: 260px;
+            height: 260px;
+            border-color: var(--neon-purple);
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pulseCircle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+        
+        .loading-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .loading-logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+        }
+        
+        .loading-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            letter-spacing: 2px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .loading-progress-container {
+            width: 300px;
+            margin-top: 40px;
+        }
+        
+        .loading-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loading-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            animation: loadingProgress 2.5s ease-in-out forwards;
+            border-radius: 2px;
+        }
+        
+        @keyframes loadingProgress {
+            0% { width: 0; }
+            20% { width: 20%; }
+            40% { width: 45%; }
+            60% { width: 70%; }
+            80% { width: 85%; }
+            100% { width: 100%; }
+        }
+        
+        .loading-percentage {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--neon-cyan);
+        }
+        
+        /* Canvas Background - Adjusted for Clarity */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        /* Main Content */
+        .content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Enhanced Navigation - Fixed */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 20, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(0);
+            transition: transform 0.5s ease, background 0.3s ease;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+        }
+        
+        #navbar.navbar-hidden {
+            transform: translateY(-100%);
+        }
+        
+        #navbar.navbar-scrolled {
+            background: rgba(10, 10, 20, 0.98);
+            padding: 12px 5%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .logo-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-cyan);
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--fast-transition);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a i {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .nav-links a:hover i {
+            opacity: 1;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--text-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--fast-transition);
+            font-size: 1.2rem;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-cyan);
+            transform: rotate(30deg);
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--text-light);
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--fast-transition);
+            z-index: 1001;
+        }
+        
+        .nav-toggle:hover {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-cyan);
+        }
+        
+        /* Sections Common Styles */
+        section {
+            padding: var(--section-spacing) 5%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--text-light), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+        
+        .section-number {
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            font-size: 6rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            color: rgba(0, 243, 255, 0.05);
+            z-index: -1;
+        }
+        
+        /* Hero Section - Enhanced */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(157, 0, 255, 0.1), transparent 50%);
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .hero-title {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
+        }
+        
+        .hero-title span {
+            display: block;
+            background: linear-gradient(45deg, var(--text-light), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 2.2rem;
+            color: var(--text-gray);
+            margin-bottom: 35px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .hero-description {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            max-width: 800px;
+            color: var(--text-gray);
+            line-height: 1.9;
+        }
+        
+        .hero-highlight {
+            color: var(--neon-cyan);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 20px 45px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: none;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 243, 255, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 0 35px rgba(0, 243, 255, 0.4);
+        }
+        
+        /* About Section - Ultra Detailed */
+        #about {
+            background: linear-gradient(to bottom, transparent, rgba(0, 102, 255, 0.03) 30%, transparent);
+            position: relative;
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 243, 255, 0.1), transparent);
+            z-index: 1;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .about-intro h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        
+        .about-intro p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+        
+        .about-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: var(--transition);
+        }
+        
+        .detail-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.2);
+        }
+        
+        .detail-icon {
+            font-size: 2.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .detail-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+        
+        .detail-item p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .skills-container {
+            margin-top: 30px;
+        }
+        
+        .skills-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .skill-category {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.15);
+        }
+        
+        .skill-category h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--neon-cyan);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .skill-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            transition: var(--fast-transition);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+        
+        /* Services Section - Enhanced */
+        #services {
+            background: linear-gradient(to bottom, transparent, rgba(157, 0, 255, 0.03) 30%, transparent);
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 50px 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 25px 60px rgba(0, 243, 255, 0.25);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--neon-cyan);
+            margin-bottom: 30px;
+            display: inline-block;
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+        
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: var(--text-gray);
+            line-height: 1.9;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .service-features {
+            margin-top: 25px;
+        }
+        
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        .service-feature i {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+        }
+        
+        /* Experience Section - Enhanced Timeline */
+        #experience {
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 157, 0.03) 30%, transparent);
+        }
+        
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            z-index: 1;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 100px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 50px rgba(0, 243, 255, 0.2);
+        }
+        
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            margin: 0 40px;
+            flex-shrink: 0;
+            align-self: center;
+            position: relative;
+            z-index: 3;
+            border: 4px solid var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .timeline-content p {
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .timeline-tech span {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        /* Projects Section - Enhanced */
+        #projects {
+            background: linear-gradient(to bottom, transparent, rgba(0, 102, 255, 0.03) 30%, transparent);
+        }
+        
+        .projects-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 14px 32px;
+            background: var(--card-bg);
+            color: var(--text-light);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--fast-transition);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            color: #000;
+            border-color: transparent;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.3);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 50px;
+        }
+        
+        .project-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 30px 70px rgba(0, 243, 255, 0.25);
+        }
+        
+        .project-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-info {
+            padding: 40px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-info h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .project-info p {
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .project-tag {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--fast-transition);
+        }
+        
+        .project-link:hover {
+            gap: 12px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        /* Mining Rigs Section */
+        #mining-rigs {
+            background: linear-gradient(to bottom, transparent, rgba(157, 0, 255, 0.03) 30%, transparent);
+        }
+        
+        .mining-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .rig-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 45px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rig-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.05), transparent 70%);
+        }
+        
+        .rig-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 25px 60px rgba(0, 243, 255, 0.25);
+        }
+        
+        .rig-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .rig-icon {
+            font-size: 2.8rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+        
+        .rig-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .rig-card p {
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        
+        .rig-specs {
+            margin-top: 25px;
+        }
+        
+        .rig-spec {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .rig-spec:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+        
+        .spec-value {
+            color: var(--text-light);
+            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .rig-cta {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        /* Process Section */
+        #process {
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 157, 0.03) 30%, transparent);
+        }
+        
+        .process-container {
+            max-width: 1000px;
+            margin: 80px auto 0;
+            position: relative;
+        }
+        
+        .process-line {
+            position: absolute;
+            top: 0;
+            left: 30px;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            z-index: 1;
+        }
+        
+        .process-step {
+            display: flex;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            color: #000;
+            margin-right: 40px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 3;
+            border: 4px solid var(--dark-bg);
+            box-shadow: 0 0 25px var(--neon-cyan);
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .step-content:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 20px 50px rgba(0, 243, 255, 0.2);
+        }
+        
+        .step-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .step-content p {
+            color: var(--text-gray);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+        
+        .step-features {
+            margin-top: 25px;
+        }
+        
+        .step-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-gray);
+        }
+        
+        .step-feature i {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+        }
+        
+        /* Testimonials Section */
+        #testimonials {
+            background: linear-gradient(to bottom, transparent, rgba(0, 102, 255, 0.03) 30%, transparent);
+        }
+        
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 80px auto 0;
+            position: relative;
+        }
+        
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+        
+        .testimonial-slide {
+            padding: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .testimonial-slide:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 25px 60px rgba(0, 243, 255, 0.2);
+        }
+        
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 40px;
+            color: var(--text-gray);
+            line-height: 1.9;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-size: 6rem;
+            color: var(--neon-cyan);
+            opacity: 0.3;
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 25px var(--neon-cyan);
+        }
+        
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .author-info p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+        
+        /* Contact Section - Enhanced */
+        #contact {
+            background: linear-gradient(to bottom, transparent, rgba(157, 0, 255, 0.03) 30%, transparent);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            margin-top: 80px;
+        }
+        
+        .contact-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .contact-details {
+            margin-bottom: 50px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 15px 40px rgba(0, 243, 255, 0.2);
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(0, 243, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-cyan);
+            font-size: 1.8rem;
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            transition: var(--fast-transition);
+            flex-shrink: 0;
+        }
+        
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+        }
+        
+        .contact-text h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--fast-transition);
+            font-size: 1.1rem;
+        }
+        
+        .contact-text a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .social-contact {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-contact a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 243, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .social-contact a:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            transform: translateY(-8px) rotate(15deg);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.4);
+            border-color: transparent;
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 60px;
+            border: 1px solid var(--card-border);
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 20px;
+            background: rgba(15, 15, 25, 0.7);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            color: var(--text-light);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            transition: var(--fast-transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            background: rgba(15, 15, 25, 0.9);
+        }
+        
+        textarea.form-control {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            color: #000;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.4);
+        }
+        
+        .form-success {
+            display: none;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--neon-green);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .form-success i {
+            font-size: 3rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+        }
+        
+        .form-success h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(6, 6, 12, 0.95);
+            padding: 100px 5% 50px;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+        }
+        
+        .footer-col p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: var(--fast-transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+            padding-left: 10px;
+        }
+        
+        .footer-links a i {
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 243, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        
+        .social-link:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            transform: translateY(-10px) rotate(15deg);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.4);
+            border-color: transparent;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 1rem;
+            padding-top: 50px;
+            border-top: 1px solid rgba(0, 243, 255, 0.05);
+        }
+        
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+            border: none;
+        }
+        
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        #back-to-top:hover {
+            transform: translateY(-10px) rotate(5deg);
+            box-shadow: 0 20px 50px rgba(0, 243, 255, 0.5);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 4.5rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .contact-container {
+                gap: 50px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-line {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-marker {
+                margin-right: 40px;
+                margin-left: 0;
+            }
+            
+            .process-line {
+                left: 32px;
+            }
+            
+            .hero-title {
+                font-size: 3.8rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 20, 0.98);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 100px 40px;
+                gap: 25px;
+                transition: right 0.5s ease;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+                border-left: 1px solid rgba(0, 243, 255, 0.1);
+                box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .nav-cta .theme-toggle {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-number {
+                font-size: 4rem;
+                top: -20px;
+                left: -10px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .services-container,
+            .projects-grid,
+            .mining-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            #back-to-top {
+                bottom: 30px;
+                right: 30px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-number {
+                font-size: 3rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .about-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 40px 30px;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: var(--transition);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: var(--transition);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+        
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.15;
+            filter: blur(1px);
+            pointer-events: none;
+        }
+        
+        .floating-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-cyan);
+            top: 20%;
+            right: 10%;
+            animation: floatCircle 25s infinite linear;
+        }
+        
+        .floating-square {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--neon-purple);
+            border-radius: 20px;
+            bottom: 30%;
+            left: 5%;
+            transform: rotate(45deg);
+            animation: floatSquare 20s infinite linear;
+        }
+        
+        .floating-triangle {
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 120px solid var(--neon-blue);
+            opacity: 0.1;
+            top: 60%;
+            right: 15%;
+            animation: floatTriangle 30s infinite linear;
+        }
+        
+        @keyframes floatCircle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(180deg); }
+        }
+        
+        @keyframes floatSquare {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-30px); }
+        }
+        
+        @keyframes floatTriangle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-cyan), var(--neon-blue));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--neon-blue), var(--neon-purple));
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background-color: var(--neon-cyan);
+            color: #000;
+        }
+        
+        /* Focus Styles */
+        :focus {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="loading-geometry">
+                <div class="geo-circle"></div>
+                <div class="geo-circle"></div>
+                <div class="geo-circle"></div>
+            </div>
+            <div class="loading-center">
+                <div class="loading-logo">LUTHIRA HANSANA</div>
+                <div class="loading-subtitle">WEB DEVELOPER & CRYPTO MINING SPECIALIST</div>
+            </div>
+        </div>
+        <div class="loading-progress-container">
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+            <span class="loading-percentage">0%</span>
+        </div>
+    </div>
+    
+    <!-- Canvas Background -->
+    <canvas id="canvas-bg"></canvas>
+    
+    <!-- Floating Elements -->
+    <div class="floating-element floating-circle"></div>
+    <div class="floating-element floating-square"></div>
+    <div class="floating-element floating-triangle"></div>
+    
+    <!-- Enhanced Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo-container">
+            <div class="logo">LH</div>
+            <span class="logo-dot"></span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#hero" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="#about"><i class="fas fa-user"></i> About</a>
+            <a href="#services"><i class="fas fa-cogs"></i> Services</a>
+            <a href="#experience"><i class="fas fa-history"></i> Experience</a>
+            <a href="#projects"><i class="fas fa-code"></i> Projects</a>
+            <a href="#mining-rigs"><i class="fas fa-server"></i> Mining Rigs</a>
+            <a href="#process"><i class="fas fa-project-diagram"></i> Process</a>
+            <a href="#testimonials"><i class="fas fa-comment"></i> Testimonials</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+        
+        <div class="nav-cta">
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="hero-badge">PROFESSIONAL SINCE 2022</div>
+                <h1 class="hero-title">
+                    LUTHIRA HANSANA
+                    <span>Web Developer & Crypto Mining Specialist</span>
+                </h1>
+                <h2 class="hero-subtitle">Building the Future with Code & Cryptocurrency</h2>
+                <p class="hero-description">
+                    I specialize in creating <span class="hero-highlight">high-performance web applications</span> and designing <span class="hero-highlight">optimized crypto mining rigs</span> that maximize efficiency and ROI. With dual expertise in modern web technologies and blockchain infrastructure, I deliver innovative solutions that bridge the digital and cryptocurrency worlds.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="98">0</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="35">0</div>
+                        <div class="stat-label">Mining Rigs Planned</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="stat-number" data-count="24">0</div>
+                        <div class="stat-label">Websites Launched</div>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-code"></i> View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Get In Touch
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    A dual-specialist with expertise in both web development and cryptocurrency mining infrastructure. Combining technical excellence with strategic thinking to deliver exceptional results across both domains.
+                </p>
+            </div>
+            
+            <div class="about-container">
+                <div class="about-image slide-in-left">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luthira Hansana">
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-intro fade-in">
+                        <h3>Bridging Technology & Innovation</h3>
+                        <p>
+                            I'm Luthira Hansana, a professional web developer and crypto mining rig planner with extensive experience in both fields since 2022. My journey began with mastering modern web technologies, where I developed a deep understanding of full-stack development, responsive design, and performance optimization.
+                        </p>
+                        <p>
+                            As the cryptocurrency revolution accelerated, I applied my technical expertise to the emerging field of crypto mining. I now specialize in designing, optimizing, and maintaining mining setups that balance performance, energy efficiency, and long-term profitability.
+                        </p>
+                        <p>
+                            My unique dual expertise allows me to approach challenges from multiple perspectives, creating innovative solutions that bridge the digital and blockchain worlds. I believe in continuous learning and staying at the forefront of both web technologies and cryptocurrency developments.
+                        </p>
+                    </div>
+                    
+                    <div class="about-details">
+                        <div class="detail-item stagger-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Web Development</h4>
+                            <p>Full-stack development with modern frameworks and technologies for scalable, high-performance applications.</p>
+                        </div>
+                        
+                        <div class="detail-item stagger-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h4>Mining Rig Planning</h4>
+                            <p>Design and optimization of cryptocurrency mining rigs for maximum efficiency and ROI.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-container">
+                        <h3 class="skills-title">Technical Expertise</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category fade-in">
+                                <h4><i class="fas fa-globe"></i> Web Technologies</h4>
+                                <div class="skill-list">
+                                    <span class="skill-tag">HTML5/CSS3</span>
+                                    <span class="skill-tag">JavaScript (ES6+)</span>
+                                    <span class="skill-tag">React.js</span>
+                                    <span class="skill-tag">Vue.js</span>
+                                    <span class="skill-tag">Node.js</span>
+                                    <span class="skill-tag">Express.js</span>
+                                    <span class="skill-tag">MongoDB</span>
+                                    <span class="skill-tag">PostgreSQL</span>
+                                    <span class="skill-tag">REST APIs</span>
+                                    <span class="skill-tag">GraphQL</span>
+                                    <span class="skill-tag">WebSockets</span>
+                                    <span class="skill-tag">PWA</span>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-category fade-in">
+                                <h4><i class="fas fa-coins"></i> Crypto & Mining</h4>
+                                <div class="skill-list">
+                                    <span class="skill-tag">Blockchain Fundamentals</span>
+                                    <span class="skill-tag">Cryptocurrency Mining</span>
+                                    <span class="skill-tag">Rig Design & Assembly</span>
+                                    <span class="skill-tag">Performance Optimization</span>
+                                    <span class="skill-tag">Energy Efficiency</span>
+                                    <span class="skill-tag">ROI Analysis</span>
+                                    <span class="skill-tag">Hardware Selection</span>
+                                    <span class="skill-tag">Cooling Systems</span>
+                                    <span class="skill-tag">Power Management</span>
+                                    <span class="skill-tag">Mining Software</span>
+                                    <span class="skill-tag">Profitability Calculation</span>
+                                    <span class="skill-tag">Security Best Practices</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <section id="services">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">My Services</h2>
+                <p class="section-subtitle">
+                    Comprehensive solutions tailored to your digital and blockchain infrastructure needs, delivered with precision and attention to detail.
+                </p>
+            </div>
+            
+            <div class="services-container">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Full-Stack Web Development</h3>
+                    <p>Custom, responsive websites and web applications built with modern technologies for optimal performance, scalability, and user experience across all devices and platforms.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Responsive Design & Mobile Optimization</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Performance Optimization & SEO</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Secure Authentication & Payment Integration</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>API Development & Third-party Integration</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Crypto Mining Rig Planning</h3>
+                    <p>End-to-end design, optimization, and maintenance of cryptocurrency mining rigs for maximum efficiency, ROI, and sustainability with detailed performance analytics.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Custom Rig Design & Hardware Selection</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Energy Efficiency Optimization</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>ROI Analysis & Profitability Forecasting</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Cooling System Design & Implementation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance Optimization</h3>
+                    <p>Comprehensive analysis and enhancement of both website performance and mining rig efficiency through advanced monitoring, testing, and tuning techniques.</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Website Speed Optimization & Core Web Vitals</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Mining Rig Performance Tuning</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Load Testing & Stress Testing</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Continuous Monitoring & Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">Experience & Journey</h2>
+                <p class="section-subtitle">
+                    My professional timeline in web development and crypto mining since 2022, marked by continuous growth, learning, and achievement.
+                </p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content slide-in-left">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2022 - PRESENT
+                        </div>
+                        <h3>Freelance Web Developer & Crypto Mining Consultant</h3>
+                        <p>Working with clients worldwide to develop custom web solutions and design optimized crypto mining rigs. Successfully completed over 50 projects with a 98% client satisfaction rate. Developed proprietary algorithms for mining rig performance prediction and ROI analysis.</p>
+                        <div class="timeline-tech">
+                            <span>React.js</span>
+                            <span>Node.js</span>
+                            <span>Blockchain</span>
+                            <span>Mining Optimization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content slide-in-right">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2022 - Q3 2023
+                        </div>
+                        <h3>Specialized Crypto Mining Rig Planner</h3>
+                        <p>Designed and optimized mining rigs for various cryptocurrencies, focusing on energy efficiency and maximizing ROI. Developed comprehensive monitoring dashboards and implemented automated adjustment systems based on market conditions and electricity costs.</p>
+                        <div class="timeline-tech">
+                            <span>GPU Optimization</span>
+                            <span>Energy Efficiency</span>
+                            <span>ROI Analysis</span>
+                            <span>Hardware Tuning</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content slide-in-left">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2022 - Q2 2023
+                        </div>
+                        <h3>Full-Stack Web Development Projects</h3>
+                        <p>Built responsive web applications for clients in e-commerce, finance, healthcare, and education sectors. Implemented modern frameworks, responsive designs, and secure payment integrations with a focus on performance, accessibility, and user experience.</p>
+                        <div class="timeline-tech">
+                            <span>Vue.js</span>
+                            <span>Python</span>
+                            <span>MongoDB</span>
+                            <span>API Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">
+                    A selection of my recent web development and crypto mining projects showcasing technical expertise, innovation, and attention to detail.
+                </p>
+            </div>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="crypto">Crypto Mining</button>
+                <button class="filter-btn" data-filter="blockchain">Blockchain</button>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="E-commerce Platform">
+                        <div class="project-overlay">
+                            <div class="btn btn-primary">View Project Details</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Modern E-commerce Platform</h3>
+                        <p>A fully responsive online store with advanced filtering, secure payment integration, real-time inventory management, and comprehensive admin dashboard. Built with React, Node.js, and MongoDB.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                            <span class="project-tag">Stripe API</span>
+                            <span class="project-tag">Redux</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="crypto">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mining Rig Dashboard">
+                        <div class="project-overlay">
+                            <div class="btn btn-primary">View Project Details</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Mining Rig Monitoring Dashboard</h3>
+                        <p>A real-time dashboard for monitoring multiple crypto mining rigs with performance analytics, alert systems, and automated adjustment recommendations. Features predictive maintenance and ROI tracking.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">WebSockets</span>
+                            <span class="project-tag">Chart.js</span>
+                            <span class="project-tag">API Integration</span>
+                            <span class="project-tag">Real-time Data</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="blockchain">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Blockchain Voting System">
+                        <div class="project-overlay">
+                            <div class="btn btn-primary">View Project Details</div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Blockchain Voting System</h3>
+                        <p>A secure, transparent voting platform built on Ethereum blockchain with smart contract verification, voter authentication, and real-time result tracking. Ensures tamper-proof voting with complete audit trail.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Solidity</span>
+                            <span class="project-tag">Ethereum</span>
+                            <span class="project-tag">Web3.js</span>
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Smart Contracts</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i>
+                                <span>View Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Mining Rigs Section -->
+        <section id="mining-rigs">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Crypto Mining Solutions</h2>
+                <p class="section-subtitle">
+                    Custom-designed mining rigs optimized for different cryptocurrencies, efficiency requirements, and budget constraints with detailed specifications and ROI analysis.
+                </p>
+            </div>
+            
+            <div class="mining-container">
+                <div class="rig-card fade-in">
+                    <div class="rig-header">
+                        <div class="rig-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>Ethereum Classic Mining Rig</h3>
+                    </div>
+                    <p>High-performance rig optimized for Ethereum Classic mining with excellent energy efficiency, advanced cooling system, remote management capabilities, and automatic failover.</p>
+                    <div class="rig-specs">
+                        <div class="rig-spec">
+                            <span class="spec-label">Hash Rate</span>
+                            <span class="spec-value">250 MH/s ±5%</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Power Consumption</span>
+                            <span class="spec-value">800W (at wall)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">ROI Period</span>
+                            <span class="spec-value">14 Months (estimated)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">GPU Configuration</span>
+                            <span class="spec-value">6 x RTX 3070 (LHR unlocked)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Cooling System</span>
+                            <span class="spec-value">Dual 140mm industrial fans</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Monitoring</span>
+                            <span class="spec-value">Remote dashboard + alerts</span>
+                        </div>
+                    </div>
+                    <div class="rig-cta">
+                        <a href="#contact" class="btn btn-secondary">Inquire About This Rig</a>
+                    </div>
+                </div>
+                
+                <div class="rig-card fade-in">
+                    <div class="rig-header">
+                        <div class="rig-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Bitcoin ASIC Miner Setup</h3>
+                    </div>
+                    <p>Professional Bitcoin mining setup with multiple ASIC miners, optimized cooling, power management system, noise reduction technology, and automated performance tuning.</p>
+                    <div class="rig-specs">
+                        <div class="rig-spec">
+                            <span class="spec-label">Hash Rate</span>
+                            <span class="spec-value">110 TH/s ±3%</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Power Consumption</span>
+                            <span class="spec-value">3250W (220V required)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">ROI Period</span>
+                            <span class="spec-value">18 Months (estimated)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">ASIC Model</span>
+                            <span class="spec-value">Antminer S19 Pro (110Th)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Cooling System</span>
+                            <span class="spec-value">Liquid immersion cooling</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Noise Level</span>
+                            <span class="spec-value">< 50 dB (with enclosure)</span>
+                        </div>
+                    </div>
+                    <div class="rig-cta">
+                        <a href="#contact" class="btn btn-secondary">Inquire About This Rig</a>
+                    </div>
+                </div>
+                
+                <div class="rig-card fade-in">
+                    <div class="rig-header">
+                        <div class="rig-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Multi-Algorithm Mining Farm</h3>
+                    </div>
+                    <p>Versatile mining farm capable of switching between different cryptocurrencies based on profitability with automated algorithm switching, load balancing, and failover systems.</p>
+                    <div class="rig-specs">
+                        <div class="rig-spec">
+                            <span class="spec-label">Algorithms</span>
+                            <span class="spec-value">Ethash, KawPow, Octopus</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Power Consumption</span>
+                            <span class="spec-value">2400W (peak)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">ROI Period</span>
+                            <span class="spec-value">12 Months (estimated)</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">GPU Configuration</span>
+                            <span class="spec-value">8 x RX 6800 XT</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Software</span>
+                            <span class="spec-value">Custom profit-switching</span>
+                        </div>
+                        <div class="rig-spec">
+                            <span class="spec-label">Uptime</span>
+                            <span class="spec-value">99.5% (monitored)</span>
+                        </div>
+                    </div>
+                    <div class="rig-cta">
+                        <a href="#contact" class="btn btn-secondary">Inquire About This Rig</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Process Section -->
+        <section id="process">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">My Working Process</h2>
+                <p class="section-subtitle">
+                    A structured, detail-oriented approach to delivering exceptional results for every project, from initial concept to final deployment and beyond.
+                </p>
+            </div>
+            
+            <div class="process-container">
+                <div class="process-line"></div>
+                
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content fade-in">
+                        <h3>Discovery & Consultation</h3>
+                        <p>In-depth analysis of your requirements, goals, and constraints through detailed discussions, market research, competitor analysis, and technical feasibility assessment.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Requirements gathering & analysis</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Technical feasibility study</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Project scope definition</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content fade-in">
+                        <h3>Planning & Strategy</h3>
+                        <p>Developing a comprehensive plan including technology stack selection, architecture design, timeline, resource allocation, and risk assessment for your project.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Technology stack selection</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Architecture & system design</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Timeline & milestone planning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content fade-in">
+                        <h3>Design & Prototyping</h3>
+                        <p>Creating wireframes, interactive prototypes, and design mockups for approval before development begins, ensuring alignment with your vision and user experience goals.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Wireframing & user flow design</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Interactive prototyping</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>UI/UX design & refinement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content fade-in">
+                        <h3>Development & Implementation</h3>
+                        <p>Building the solution with clean, maintainable code following best practices, with regular progress updates, milestone reviews, and collaborative feedback sessions.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Agile development methodology</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Regular progress updates</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Code quality assurance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content fade-in">
+                        <h3>Testing & Optimization</h3>
+                        <p>Rigorous testing across devices and scenarios, performance optimization, security auditing, accessibility testing, and user acceptance testing.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Comprehensive testing suite</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Performance optimization</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Security & penetration testing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content fade-in">
+                        <h3>Deployment & Support</h3>
+                        <p>Launching the project and providing ongoing support, maintenance, updates, performance monitoring, and continuous improvement based on user feedback.</p>
+                        <div class="step-features">
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Staging & production deployment</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Documentation & training</span>
+                            </div>
+                            <div class="step-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Ongoing support & maintenance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section id="testimonials">
+            <div class="section-header">
+                <div class="section-number">07</div>
+                <h2 class="section-title">Client Testimonials</h2>
+                <p class="section-subtitle">
+                    What clients and collaborators say about working with me on web development and crypto mining projects.
+                </p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide fade-in">
+                        <div class="testimonial-text">
+                            "Luthira transformed our online presence with a stunning website that exceeded our expectations. His attention to detail, technical expertise, and ability to understand our business needs were remarkable. The site has significantly increased our conversion rates and improved user engagement across all devices."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Wilson">
+                            </div>
+                            <div class="author-info">
+                                <h4>James Wilson</h4>
+                                <p>CEO, TechSolutions Inc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-number">08</div>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">
+                    Ready to start your next project or optimize your crypto mining operations? Contact me today to discuss how we can work together to achieve your goals.
+                </p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info slide-in-left">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Address</h4>
+                                <a href="mailto:luthirahansana@gmail.com">luthirahansana@gmail.com</a>
+                                <p>Primary contact method</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone Number</h4>
+                                <a href="tel:+94719554095">(+94)71 955 4095</a>
+                                <p>Available 9 AM - 6 PM (GMT+5:30)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>Available for projects worldwide</p>
+                                <p>Remote collaboration preferred</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Response Time</h4>
+                                <p>Typically within 24 hours</p>
+                                <p>Urgent inquiries: 2-4 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-contact">
+                        <a href="#">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form slide-in-right">
+                    <form id="contact-form" action="https://formspree.io/f/xpzveqov" method="POST">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required placeholder="Enter your email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required placeholder="What is this regarding?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="project-type">Project Type *</label>
+                            <select id="project-type" name="project-type" class="form-control" required>
+                                <option value="">Select a project type</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="crypto-mining">Crypto Mining Rig Planning</option>
+                                <option value="consultation">Technical Consultation</option>
+                                <option value="optimization">Performance Optimization</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Estimated Budget</label>
+                            <select id="budget" name="budget" class="form-control">
+                                <option value="">Select budget range</option>
+                                <option value="under-1000">Under $1,000</option>
+                                <option value="1000-5000">$1,000 - $5,000</option>
+                                <option value="5000-10000">$5,000 - $10,000</option>
+                                <option value="10000-plus">$10,000+</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" class="form-control" required placeholder="Please provide details about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                    
+                    <div class="form-success" id="form-success">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Message Sent Successfully!</h3>
+                        <p>Thank you for your message. I'll get back to you within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Luthira Hansana</h3>
+                <p>Professional web developer and crypto mining rig specialist with dual expertise in modern web technologies and blockchain infrastructure.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-stack-overflow"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#hero"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Web Development</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Crypto Mining Planning</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Performance Optimization</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Technical Consultation</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Maintenance & Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:luthirahansana@gmail.com"><i class="fas fa-envelope"></i> luthirahansana@gmail.com</a></li>
+                    <li><a href="tel:+94719554095"><i class="fas fa-phone"></i> (+94)71 955 4095</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Available Worldwide</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Luthira Hansana. All Rights Reserved. | Professional Web Developer & Crypto Mining Rig Specialist</p>
+            <p>Designed and developed with precision, performance, and attention to detail.</p>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <script>
+        // Enhanced Loading Screen with Percentage Counter
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const content = document.querySelector('.content');
+            const progressBar = document.querySelector('.loading-progress-bar');
+            const percentage = document.querySelector('.loading-percentage');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10 + 5;
+                if (progress > 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        loadingScreen.style.visibility = 'hidden';
+                        content.classList.add('loaded');
+                        
+                        // Initialize everything after loading
+                        init3DBackground();
+                        initAnimations();
+                        initNavbar();
+                        initStatsCounter();
+                        initContactForm();
+                    }, 500);
+                }
+                
+                progressBar.style.width = `${progress}%`;
+                percentage.textContent = `${Math.floor(progress)}%`;
+            }, 100);
+        });
+        
+        // 3D Background with Adjusted Clarity
+        function init3DBackground() {
+            const canvas = document.getElementById('canvas-bg');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Reduced particle count for clarity
+            const particles = [];
+            const particleCount = 80;
+            const maxDistance = 120;
+            
+            // Create particles
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.radius = Math.random() * 1.5 + 0.5;
+                    this.color = `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, 255, ${Math.random() * 0.3 + 0.1})`;
+                }
+                
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    // Bounce off edges
+                    if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                    if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+                    
+                    // Keep within bounds
+                    this.x = Math.max(0, Math.min(canvas.width, this.x));
+                    this.y = Math.max(0, Math.min(canvas.height, this.y));
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    
+                    // Subtle glow effect
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+                    const gradient = ctx.createRadialGradient(
+                        this.x, this.y, this.radius,
+                        this.x, this.y, this.radius * 2
+                    );
+                    gradient.addColorStop(0, this.color);
+                    gradient.addColorStop(1, 'rgba(0, 243, 255, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                }
+            }
+            
+            // Create initial particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            // Animation loop
+            function animate() {
+                // Clear canvas with subtle fade for trails
+                ctx.fillStyle = 'rgba(10, 10, 18, 0.03)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                // Draw subtle connections between particles
+                ctx.strokeStyle = 'rgba(0, 243, 255, 0.05)';
+                ctx.lineWidth = 0.3;
+                
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < maxDistance) {
+                            const opacity = 1 - (distance / maxDistance);
+                            ctx.strokeStyle = `rgba(0, 243, 255, ${opacity * 0.05})`;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                // Reset particles on resize
+                particles.length = 0;
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            });
+        }
+        
+        // Enhanced Navigation - Fixed and Working
+        function initNavbar() {
+            const navbar = document.getElementById('navbar');
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const themeToggle = document.getElementById('theme-toggle');
+            const backToTop = document.getElementById('back-to-top');
+            
+            let lastScrollTop = 0;
+            
+            // Handle scroll
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Show/hide navbar based on scroll direction
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    navbar.classList.add('navbar-hidden');
+                } else {
+                    navbar.classList.remove('navbar-hidden');
+                }
+                
+                lastScrollTop = scrollTop;
+                
+                // Add scrolled class for background change
+                if (scrollTop > 50) {
+                    navbar.classList.add('navbar-scrolled');
+                } else {
+                    navbar.classList.remove('navbar-scrolled');
+                }
+                
+                // Back to top button visibility
+                if (scrollTop > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // Update active nav link based on scroll position
+                updateActiveNavLink();
+            });
+            
+            // Nav toggle for mobile
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                navToggle.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                themeToggle.innerHTML = document.body.classList.contains('light-theme') ? 
+                    '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+            
+            // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = navbar.offsetHeight;
+                        const targetPosition = targetElement.offsetTop - navbarHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Back to top functionality
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Update active nav link based on scroll position
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                const scrollPosition = window.scrollY;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize animations on scroll
+        function initAnimations() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // If it's a stat card, start counting
+                        if (entry.target.classList.contains('hero-stat')) {
+                            const statNumber = entry.target.querySelector('.stat-number');
+                            if (statNumber && !statNumber.classList.contains('counted')) {
+                                startCounter(statNumber);
+                                statNumber.classList.add('counted');
+                            }
+                        }
+                        
+                        // Stagger animation for child elements
+                        if (entry.target.querySelectorAll('.stagger-item').length > 0) {
+                            const staggerItems = entry.target.querySelectorAll('.stagger-item');
+                            staggerItems.forEach((item, index) => {
+                                setTimeout(() => {
+                                    item.classList.add('visible');
+                                }, index * 100);
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all elements with animation classes
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Observe stat cards specifically
+            document.querySelectorAll('.hero-stat').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Observe sections for stagger animations
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+        
+        // Animated counter for stats
+        function initStatsCounter() {
+            // This will be triggered when stats come into view
+        }
+        
+        function startCounter(element) {
+            const target = parseInt(element.getAttribute('data-count'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    current = target;
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+        
+        // Enhanced Contact Form
+        function initContactForm() {
+            const contactForm = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+            
+            if (!contactForm) return;
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+                submitBtn.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(() => {
+                    // Show success message
+                    contactForm.style.display = 'none';
+                    formSuccess.style.display = 'block';
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Hide success message after 5 seconds and show form again
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                        contactForm.style.display = 'block';
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }, 5000);
+                }, 1500);
+            });
+        }
+        
+        // Project filtering
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Filter projects
+                const filter = this.getAttribute('data-filter');
+                const projects = document.querySelectorAll('.project-card');
+                
+                projects.forEach(project => {
+                    if (filter === 'all' || project.getAttribute('data-category') === filter) {
+                        project.style.display = 'flex';
+                        setTimeout(() => {
+                            project.style.opacity = '1';
+                            project.style.transform = 'translateY(0) scale(1)';
+                        }, 10);
+                    } else {
+                        project.style.opacity = '0';
+                        project.style.transform = 'translateY(20px) scale(0.95)';
+                        setTimeout(() => {
+                            project.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Add interactive hover effects
+        document.querySelectorAll('.service-card, .project-card, .rig-card, .detail-item, .skill-category').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+        
+        // Initialize everything on DOM content loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any additional initialization can go here
+        });
+    </script>
+</body>
+</html>
